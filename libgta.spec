@@ -105,7 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 mv $RPM_BUILD_ROOT%{_docdir}/%{name}/example-*.c* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 # packaged in -apidocs
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}/reference
+%{?with_apidocs:%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}/reference}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
