@@ -5,12 +5,12 @@
 Summary:	Library to read and write Generic Tagged Arrays (GTAs)
 Summary(pl.UTF-8):	Biblioteka od odczytu i zapisu GTA (ogólnych tablic etykietowanych)
 Name:		libgta
-Version:	1.0.3
+Version:	1.0.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/gta/%{name}-%{version}.tar.xz
-# Source0-md5:	d5b6243bbb490a5ad9df148da60c9206
+# Source0-md5:	8208e29dc8d932053bb451356f73ef75
 URL:		http://gta.nongnu.org/libgta.html
 BuildRequires:	bzip2-devel
 %{?with_apidocs:BuildRequires:	doxygen}
