@@ -5,12 +5,12 @@
 Summary:	Library to read and write Generic Tagged Arrays (GTAs)
 Summary(pl.UTF-8):	Biblioteka od odczytu i zapisu GTA (ogólnych tablic etykietowanych)
 Name:		libgta
-Version:	1.0.5
+Version:	1.0.7
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/gta/%{name}-%{version}.tar.xz
-# Source0-md5:	60bba54c4be60d11bf531300db6673c2
+# Source0-md5:	0b3726078834f990496917e31fe7e770
 URL:		http://gta.nongnu.org/libgta.html
 BuildRequires:	bzip2-devel
 %{?with_apidocs:BuildRequires:	doxygen}
@@ -102,9 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_examplesdir}/%{name}-%{version},%{_datadir}/cmake/Modules}
-mv $RPM_BUILD_ROOT%{_docdir}/%{name}/example-*.c* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-mv $RPM_BUILD_ROOT%{_docdir}/%{name}/FindGTA.cmake $RPM_BUILD_ROOT%{_datadir}/cmake/Modules
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/%{name}/example-*.c* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 # packaged in -apidocs
 %{?with_apidocs:%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}/reference}
 
@@ -125,7 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgta.so
 %{_includedir}/gta
 %{_pkgconfigdir}/gta.pc
-%{_datadir}/cmake/Modules/FindGTA.cmake
+%dir %{_datadir}/libgta
+%{_datadir}/libgta/cmake
 %{_examplesdir}/%{name}-%{version}
 
 %files static
