@@ -1,12 +1,12 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
-#
+
 Summary:	Library to read and write Generic Tagged Arrays (GTAs)
 Summary(pl.UTF-8):	Biblioteka od odczytu i zapisu GTA (ogólnych tablic etykietowanych)
 Name:		libgta
 Version:	1.0.7
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://download.savannah.nongnu.org/releases/gta/%{name}-%{version}.tar.xz
@@ -24,13 +24,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Libgta is a portable library that implements the Generic Tagged Array
 (GTA) file format. This file format has the following features:
 
-* GTAs can store any kind of data in multidimensional arrays
-* GTAs can optionally use simple tags to store rich metadata
-* GTAs are streamable, which allows direct reading from and writing to
+- GTAs can store any kind of data in multidimensional arrays
+- GTAs can optionally use simple tags to store rich metadata
+- GTAs are streamable, which allows direct reading from and writing to
   pipes, network sockets, and other non-seekable media
-* GTAs can use ZLIB, BZIP2, or XZ compression, allowing a tradeoff
+- GTAs can use ZLIB, BZIP2, or XZ compression, allowing a tradeoff
   between compression/decompression speed and compression ratio
-* Uncompressed GTA files allow easy out-of-core data access for very
+- Uncompressed GTA files allow easy out-of-core data access for very
   large arrays.
 
 %description -l pl.UTF-8
@@ -80,6 +80,9 @@ Statyczna biblioteka GTA.
 Summary:	GTA API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki GTA
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API and internal documentation for GTA library.
