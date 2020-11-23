@@ -5,15 +5,17 @@
 Summary:	Library to read and write Generic Tagged Arrays (GTAs)
 Summary(pl.UTF-8):	Biblioteka od odczytu i zapisu GTA (ogólnych tablic etykietowanych)
 Name:		libgta
-Version:	1.0.8
+Version:	1.2.1
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://download.savannah.nongnu.org/releases/gta/%{name}-%{version}.tar.xz
-# Source0-md5:	0012d064c9aca88c916081717b7f1511
-URL:		http://gta.nongnu.org/libgta.html
+#Source0Download: https://marlam.de/gta/download/
+Source0:	https://marlam.de/gta/releases/%{name}-%{version}.tar.xz
+# Source0-md5:	84fbd03883fb8cdcf7e80d0966f0b1c5
+URL:		https://marlam.de/gta/
 BuildRequires:	bzip2-devel
 %{?with_apidocs:BuildRequires:	doxygen}
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	xz-devel
@@ -28,10 +30,7 @@ Libgta is a portable library that implements the Generic Tagged Array
 - GTAs can optionally use simple tags to store rich metadata
 - GTAs are streamable, which allows direct reading from and writing to
   pipes, network sockets, and other non-seekable media
-- GTAs can use ZLIB, BZIP2, or XZ compression, allowing a tradeoff
-  between compression/decompression speed and compression ratio
-- Uncompressed GTA files allow easy out-of-core data access for very
-  large arrays.
+- GTA files allow easy out-of-core data access for very large arrays.
 
 %description -l pl.UTF-8
 libgta to przenośna biblioteka zawierająca implementację formatu GTA
@@ -43,11 +42,7 @@ następujące cechy:
 - daje się obrabiać strumieniowo, co pozwala na bezpośredni odczyt i
   zapis do potoków, gniazd sieciowych i innych nośników nie
   obsługujących przewijania
-- może wykorzystywać kompresję ZLIB, BZIP2 lub XZ, pozwalając na
-  kompromis między szybkością kompresji/dekompresji a współczynnikiem
-  upakowania
-- w przypadku nieskompresowanych plików możliwy jest łatwy dostęp do
-  danych nawet dla bardzo dużych tablic.
+- możliwy jest łatwy dostęp do danych nawet dla bardzo dużych tablic.
 
 %package devel
 Summary:	Header files for GTA library
@@ -80,9 +75,7 @@ Statyczna biblioteka GTA.
 Summary:	GTA API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki GTA
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description apidocs
 API and internal documentation for GTA library.
@@ -96,7 +89,8 @@ Dokumentacja API biblioteki GTA.
 %build
 %configure \
 	%{!?with_apidocs:--disable-reference} \
-	--disable-silent-rules
+	--disable-silent-rules \
+	--with-compression
 %{__make}
 
 %install
@@ -120,15 +114,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_libdir}/libgta.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgta.so.0
+%attr(755,root,root) %ghost %{_libdir}/libgta.so.1
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgta.so
 %{_includedir}/gta
 %{_pkgconfigdir}/gta.pc
-%dir %{_datadir}/libgta
-%{_datadir}/libgta/cmake
 %{_examplesdir}/%{name}-%{version}
 
 %files static
